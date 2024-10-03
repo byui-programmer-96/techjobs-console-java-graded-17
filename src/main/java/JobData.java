@@ -96,7 +96,7 @@ public class JobData {
 
         for (HashMap<String, String> job : allJobs) {
             for (String field : job.values()) {
-                if (field.toLowerCase().contains(value.toLowerCase())) {
+                if (field != null && field.toLowerCase().contains(value.toLowerCase())) {
                     jobs.add(job);
                     break;  // Break to avoid adding duplicate jobs
                 }
