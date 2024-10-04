@@ -12,6 +12,7 @@ public class TechJobs {
     static Scanner in = new Scanner(System.in);
 
     public static void main (String[] args) {
+        JobData.loadData();
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -70,7 +71,6 @@ public class TechJobs {
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
-                break;
             }
         }
     }
@@ -124,9 +124,8 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
         if (someJobs.isEmpty()) {
-            System.out.println("No Results");
+            System.out.print("No Results");
             return;
         }
 
@@ -140,4 +139,5 @@ public class TechJobs {
             System.out.println("*****");
         }
     }
+
 }
