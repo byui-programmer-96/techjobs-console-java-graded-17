@@ -72,9 +72,10 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
+
             String aValue = row.get(column);
 
-            if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
+            if (aValue.contains(value)) {
                 jobs.add(row);
             }
         }
@@ -85,20 +86,24 @@ public class JobData {
     /**
      * Search all columns for the given term
      *
-     * @param value The search term to look for
+     * @param searchTerm The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+    public static ArrayList<HashMap<String, String>> findByValue(String searchTerm) {
+
         // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> job : allJobs) {
-            for (String field : job.values()) {
-                if (field != null && field.toLowerCase().contains(value.toLowerCase())) {
-                    jobs.add(job);
-                    break;  // Break to avoid adding duplicate jobs
+        for (HashMap<String, String> row : allJobs) {
+            for (String key : row.keySet()) {
+                String value = row.get(key).toLowerCase();
+                if (value.contains(searchTerm.toLowerCase())) {
+                    if (!jobs.contains(row)) {
+                        jobs.add(row);
+                    }
+                    break;
                 }
             }
         }
